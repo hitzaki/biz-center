@@ -12,9 +12,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @author hitzaki
  */
 @Configuration
-public class TokenConfig { // TODO 将笔记整理一下, 然后复习一下这个作用
+public class TokenConfig {
 
-    // TODO 变成配置中心获取, 密钥放在naocos安全吗?
     String SIGNING_KEY = "mq123";
 
 
