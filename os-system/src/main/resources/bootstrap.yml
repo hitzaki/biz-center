@@ -1,6 +1,7 @@
+#微服务配置
 spring:
   application:
-    name: auth-service
+    name: os-server
   cloud:
     nacos:
       server-addr: 192.168.101.65:8848
@@ -12,6 +13,10 @@ spring:
         group: biz-center
         file-extension: yaml
         refresh-enabled: true
+        extension-configs:
+          - data-id: media-service-${spring.profiles.active}.yaml
+            group: biz-center
+            refresh: true
         shared-configs:
           - data-id: swagger-${spring.profiles.active}.yaml
             group: biz-center
@@ -21,3 +26,4 @@ spring:
 #            refresh: true
   profiles:
     active: dev
+

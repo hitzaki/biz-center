@@ -7,15 +7,15 @@ spring:
       server-addr: 192.168.101.65:8848
       discovery:
         namespace: dev
-        group: xuecheng-plus-project
+        group: biz-center
       config:
         namespace: dev
-        group: xuecheng-plus-project
+        group: biz-center
         file-extension: yaml
         refresh-enabled: true
 #        shared-configs:
 #          - data-id: logging-${spring.profiles.active}.yaml
-#            group: xuecheng-plus-common
+#            group: biz-center
 #            refresh: true
 
 

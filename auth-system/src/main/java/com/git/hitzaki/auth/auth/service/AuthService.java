@@ -12,7 +12,7 @@ public interface AuthService {
   /**
    * @description 认证方法
    * @param authParamsDto 认证参数
-   * @return com.xuecheng.ucenter.model.po.XcUser 用户信息
+   * @return com..ucenter.model.po.XcUser 用户信息
    * @author hitzaki
    */
   AuthUserExt execute(AuthParamsDto authParamsDto);
