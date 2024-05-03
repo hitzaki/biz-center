@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /link
+  port: 63075
+
+spring:
+  application:
+    name: link-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.101.65:3306/biz_link?serverTimezone=UTC&userUnicode=true&useSSL=false&
+    username: root
+    password: mysql
+#  data:
+#    redis:
+#      host: 127.0.0.1
+#      port: 6379
+#      password: 123456
+#  mvc:
+#    view:
+#      prefix: /templates/
+#      suffix: .html
+  cloud:
+    nacos:
+      server-addr: 192.168.101.65:8848
+      discovery:
+        namespace: dev
+        group: biz-center
+
+short-link:
+  domain:
+    default: localhost:63010
