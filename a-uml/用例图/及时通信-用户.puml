@@ -1,0 +1,32 @@
+@startuml
+'最近一次更新时间: 2024-05-05
+left to right direction
+
+:用户: as User
+
+(单聊) as (Use1)
+  (临时会话) as (Use11)
+  (好友聊天) as (Use12)
+(群聊) as (Use2)
+  (临时聊天室) as (Use21)
+  (好友群聊) as (Use22)
+(好友关系) as (Use3)
+  (分组) as (Use31)
+  (好友申请) as (Use32)
+  (删除) as (Use33)
+  (拉黑) as (Use34)
+
+User -down-> (Use1)
+User -down-> (Use2)
+User -down-> (Use3)
+
+(Use1) --> (Use11):extend
+(Use1) --> (Use12):extend
+(Use2) --> (Use21):extend
+(Use2) --> (Use22):extend
+(Use3) --> (Use31):extend
+(Use3) --> (Use32):extend
+(Use3) --> (Use33):extend
+(Use3) --> (Use34):extend
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+'最近一次更新时间: 2024-05-05
+left to right direction
+
+:管理员: as Admin
+
+'(注册) as (Use1)
+'(登录) as (Use2)
+'  (账号密码) as (Use21)
+'  (第三方登录) as (Use22)
+'(退出登录) as (Use3)
+'
+'Admin -down-> (Use1)
+'Admin -down-> (Use2)
+'Admin -down-> (Use3)
+'
+'(Use2) --> (Use21):extend
+'(Use2) --> (Use22):extend
+
+@enduml

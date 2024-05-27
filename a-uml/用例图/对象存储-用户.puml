@@ -1,0 +1,24 @@
+@startuml
+'最近一次更新时间: 2024-05-05
+left to right direction
+
+:用户: as User
+
+(上传小文件) as (Use1)
+(上传大型文件) as (Use2)
+  (传输分块) as (Use21)
+  (检查分块存在) as (Use22)
+  (分块合并) as (Use23)
+(查看文件) as (Use3)
+(删除文件) as (Use4)
+
+User -down-> (Use1)
+User -down-> (Use2)
+User -down-> (Use3)
+User -down-> (Use4)
+
+(Use2) --> (Use21):include
+(Use2) --> (Use22):include
+(Use2) --> (Use23):include
+
+@enduml

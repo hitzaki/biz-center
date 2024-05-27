@@ -1,0 +1,60 @@
+@startchen
+left to right direction
+
+'用户
+entity USER {
+  id <<key>>
+  用户名
+  密码
+  微信id
+  用户类型
+  业务线
+  生日等信息
+}
+'用户角色
+entity USER_ROLE{
+  id <<key>>
+  用户id
+  角色id
+}
+'角色
+entity ROLE {
+  id <<key>>
+  角色名
+  角色code
+  角色描述
+}
+'角色权限
+entity PERMISSION {
+  id <<key>>
+  角色id
+  权限id
+  角色描述
+}
+'权限
+entity MENU{
+  id <<key>>
+  权限名
+  权限code
+}
+
+relationship RELA1 {
+}
+relationship RELA2 {
+}
+relationship RELA3 {
+}
+relationship RELA4 {
+}
+
+RELA1 -(1,N)- USER_ROLE
+RELA1 -1- USER
+
+RELA2 -1- USER_ROLE
+RELA2 -1- ROLE
+
+RELA3 -1- ROLE
+RELA3 -(1,N)- PERMISSION
+RELA4 -1- MENU
+RELA4 -1- PERMISSION
+@endchen

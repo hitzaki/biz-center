@@ -1,0 +1,41 @@
+@startchen
+left to right direction
+
+
+'处理
+entity PROCESS {
+  id <<key>>
+  文件id
+  处理状态
+  失败信息
+}
+'文件
+entity FILE {
+  id <<key>>
+  文件名
+  文件类型
+  标签
+  存储桶
+  存储路径
+}
+'处理历史
+entity PROCESS_HIS {
+  id <<key>>
+  文件id
+  处理状态
+  失败信息
+  处理时间
+}
+
+relationship RELA1 {
+}
+relationship RELA2 {
+}
+
+RELA1 -1- PROCESS
+RELA1 -1- FILE
+
+RELA2 -1- PROCESS_HIS
+RELA2 -1- FILE
+
+@endchen

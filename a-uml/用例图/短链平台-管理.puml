@@ -1,0 +1,13 @@
+@startuml
+'最近一次更新时间: 2024-05-05
+left to right direction
+
+:管理员: as Admin
+
+(生成短链接) as (Use1)
+(查看统计数据) as (Use2)
+
+Admin -down-> (Use1)
+Admin -down-> (Use2)
+
+@enduml

@@ -1,0 +1,13 @@
+@startchen
+left to right direction
+
+'下发记录
+entity USER {
+  id <<key>>
+  发送方信息
+  接收方信息
+  发送内容
+  发送类型
+}
+
+@endchen

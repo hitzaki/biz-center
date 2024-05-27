@@ -1,0 +1,72 @@
+@startchen
+left to right direction
+
+
+'好友申请
+entity FRIENDSHIP_REQUEST {
+  id <<key>>
+  申请方id
+  申请消息
+  申请来源
+  申请状态
+}
+'好友分组
+entity FRIENDSHIP_GROUP {
+  id <<key>>
+  用户id
+  分组名
+  好友列表
+}
+'好友
+entity FRIENDSHIP {
+  id <<key>>
+  用户id
+  好友id
+  备注
+  是否删除
+  是否拉黑
+  添加来源
+}
+'消息
+entity MESSAGE {
+  id <<key>>
+  用户id
+  好友id
+  群聊id
+  消息体
+}
+'群聊
+entity GROUP {
+  id <<key>>
+  群主id
+  群名称
+  群类型
+  是否开启禁言
+  群简介
+  状态
+  管理员列表
+  成员列表
+}
+
+relationship RELA1 {
+}
+relationship RELA2 {
+}
+relationship RELA3 {
+}
+relationship RELA4 {
+}
+
+RELA1 -(0,1)- FRIENDSHIP_REQUEST
+RELA1 -1- FRIENDSHIP
+
+RELA2 -(0,n)- FRIENDSHIP
+RELA2 -1- FRIENDSHIP_GROUP
+
+RELA3 -1- MESSAGE
+RELA3 -(1,N)- FRIENDSHIP
+
+RELA4 -1- MESSAGE
+RELA4 -1- GROUP
+
+@endchen

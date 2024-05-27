@@ -1,0 +1,47 @@
+@startchen
+left to right direction
+
+'地区访问统计
+entity LOCAL_STATS {
+  id <<key>>
+  短链接
+  日期
+  国家编码
+  城市编码
+  访问数量
+}
+'短链
+entity LINK {
+  id <<key>>
+  短链接
+  原始链接
+  是否启用
+  创建类型
+  有效期类型
+  有效期
+  描述
+}
+'访问日志
+entity LINK_LOG {
+  id <<key>>
+  短链接
+  用户信息
+  ip
+  浏览器
+  操作系统
+  设备
+  地区
+}
+
+relationship RELA1 {
+}
+relationship RELA2 {
+}
+
+RELA1 -(0,N)- LOCAL_STATS
+RELA1 -1- LINK
+
+RELA2 -(0,N)- LINK_LOG
+RELA2 -1- LINK
+
+@endchen
