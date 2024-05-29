@@ -18,18 +18,17 @@ import java.io.File;
 public interface MediaFileService {
 
  /**
-  * @description 媒资文件查询方法
-  * @param pageParams 分页参数
+  * @param pageParams          分页参数
   * @param queryMediaParamsDto 查询条件
   * @return com.git.hitzaki.base.model.PageResult<com.git.hitzaki.os.model.po.MediaFiles>
+  * @description 媒资文件查询方法
   * @author hitzaki
- */
- public PageResult<MediaFiles> queryMediaFiels(Long companyId,PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
+  */
+ public PageResult<MediaFiles> queryMediaFiels(PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
 
  /**
   * @description 上传文件的通用接口
-  * @param companyId  机构id
   * @param uploadFileParamsDto  文件信息
   * @param bytes  文件字节数组
   * @param folder 桶下边的子目录
@@ -37,9 +36,8 @@ public interface MediaFileService {
   * @return com.git.hitzaki.os.model.dto.UploadFileResultDto
   * @author hitzaki
  */
- public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, byte[] bytes,String folder,String objectName);
+ public UploadFileResultDto uploadFile(UploadFileParamsDto uploadFileParamsDto, byte[] bytes,String folder,String objectName);
  /**
-  * @param companyId
   * @param fileId
   * @param uploadFileParamsDto
   * @param bucket
@@ -49,7 +47,7 @@ public interface MediaFileService {
   * @author hitzaki
   */
  @Transactional
- public MediaFiles addMediaFilesToDb(Long companyId, String fileId, UploadFileParamsDto uploadFileParamsDto, String bucket, String objectName);
+ public MediaFiles addMediaFilesToDb(String fileId, UploadFileParamsDto uploadFileParamsDto, String bucket, String objectName);
 
  /**
   * @description 检查文件是否存在
@@ -81,14 +79,13 @@ public interface MediaFileService {
 
  /**
   * @description 合并分块
-  * @param companyId  机构id
   * @param fileMd5  文件md5
   * @param chunkTotal 分块总和
   * @param uploadFileParamsDto 文件信息
   * @return com.git.hitzaki.base.model.RestResponse
   * @author hitzaki
   */
- public RestResponse mergechunks(Long companyId,String fileMd5,int chunkTotal,UploadFileParamsDto uploadFileParamsDto);
+ public RestResponse mergechunks(String fileMd5,int chunkTotal,UploadFileParamsDto uploadFileParamsDto);
 
  /**
   * @description 根据id查询文件信息

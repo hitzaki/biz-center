@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@TableName("t_link_goto")
+@TableName("link_goto")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShortLinkGotoDO {

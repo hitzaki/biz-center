@@ -1,7 +1,7 @@
 #微服务配置
 spring:
   application:
-    name: os-server
+    name: os-service
   cloud:
     nacos:
       server-addr: 192.168.101.65:8848

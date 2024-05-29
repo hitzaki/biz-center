@@ -18,6 +18,7 @@
 package com.git.hitzaki.link.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.git.hitzaki.base.model.PageParams;
 import com.git.hitzaki.base.model.RestResponse;
 import com.git.hitzaki.link.dto.req.ShortLinkBatchCreateReqDTO;
 import com.git.hitzaki.link.dto.req.ShortLinkCreateReqDTO;
@@ -82,8 +83,8 @@ public class ShortLinkController {
      * 分页查询短链接
      */
     @GetMapping("/api/short-link/v1/page")
-    public RestResponse<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
-        return RestResponse.success(shortLinkService.pageShortLink(requestParam));
+    public RestResponse<IPage<ShortLinkPageRespDTO>> pageShortLink(PageParams pageParams, @RequestBody(required = false) ShortLinkPageReqDTO requestParam) {
+        return RestResponse.success(shortLinkService.pageShortLink(pageParams));
     }
 
 }

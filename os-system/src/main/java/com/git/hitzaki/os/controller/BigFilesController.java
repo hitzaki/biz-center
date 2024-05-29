@@ -66,7 +66,7 @@ public class BigFilesController {
         uploadFileParamsDto.setFilename(fileName);
         uploadFileParamsDto.setFileType("001002");//视频
         uploadFileParamsDto.setTags("课程视频");
-        return mediaFileService.mergechunks(companyId,fileMd5,chunkTotal,uploadFileParamsDto);
+        return mediaFileService.mergechunks(fileMd5,chunkTotal,uploadFileParamsDto);
 
     }
 

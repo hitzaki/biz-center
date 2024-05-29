@@ -30,7 +30,7 @@ import java.util.Date;
 
 @Data
 @Builder
-@TableName("t_link")
+@TableName("link")
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShortLinkDO extends BaseDO {

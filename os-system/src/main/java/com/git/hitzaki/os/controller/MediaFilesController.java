@@ -32,20 +32,17 @@ public class MediaFilesController {
 
     @ApiOperation("媒资列表查询接口")
     @PostMapping("/files")
-    public PageResult<MediaFiles> list(PageParams pageParams, @RequestBody QueryMediaParamsDto queryMediaParamsDto) {
-
-        Long companyId = 1232141425L;
-        return mediaFileService.queryMediaFiels(companyId, pageParams, queryMediaParamsDto);
+    public PageResult<MediaFiles> list(PageParams pageParams, @RequestBody(required = false) QueryMediaParamsDto queryMediaParamsDto) {
+        return mediaFileService.queryMediaFiels(pageParams, queryMediaParamsDto);
 
     }
 
-    @RequestMapping(value = "/upload/coursefile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @RequestMapping(value = "/upload/file", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile filedata,
                                       @RequestParam(value = "folder",required=false) String folder,
                                       @RequestParam(value= "objectName",required=false) String objectName) {
 
 
-        Long companyId = 1232141425L;
         UploadFileParamsDto uploadFileParamsDto = new UploadFileParamsDto();
         String contentType = filedata.getContentType();
         uploadFileParamsDto.setContentType(contentType);
@@ -59,7 +56,7 @@ public class MediaFilesController {
         uploadFileParamsDto.setFilename(filedata.getOriginalFilename());//文件名称
         UploadFileResultDto uploadFileResultDto = null;
         try {
-            uploadFileResultDto = mediaFileService.uploadFile(companyId, uploadFileParamsDto, filedata.getBytes(), folder, objectName);
+            uploadFileResultDto = mediaFileService.uploadFile(uploadFileParamsDto, filedata.getBytes(), folder, objectName);
         } catch (Exception e) {
             BizCenterException.cast("上传文件过程中出错");
         }

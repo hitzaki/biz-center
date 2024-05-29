@@ -26,6 +26,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.git.hitzaki.base.exception.BizCenterException;
+import com.git.hitzaki.base.model.PageParams;
 import com.git.hitzaki.link.common.enums.VailDateTypeEnum;
 import com.git.hitzaki.link.dao.entity.ShortLinkDO;
 import com.git.hitzaki.link.dao.entity.ShortLinkGotoDO;
@@ -64,7 +65,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLinkDO> implements ShortLinkService {
@@ -138,7 +138,6 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                         .build();
                 result.add(linkBaseInfoRespDTO);
             } catch (Throwable ex) {
-                log.error("批量创建短链接失败，原始参数：{}", originUrls.get(i));
             }
         }
         return ShortLinkBatchCreateRespDTO.builder()
@@ -221,8 +220,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     }
 
     @Override
-    public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam) {
-        IPage<ShortLinkDO> resultPage = baseMapper.pageLink(requestParam);
+    public IPage<ShortLinkPageRespDTO> pageShortLink(PageParams pageParams) {
+        IPage<ShortLinkDO> resultPage = baseMapper.pageLink(pageParams);
         return resultPage.convert(each -> {
             ShortLinkPageRespDTO result = BeanUtil.toBean(each, ShortLinkPageRespDTO.class);
             result.setDomain("http://" + result.getDomain());
@@ -236,13 +235,10 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     public void restoreUrl(String shortUri, ServletRequest request, ServletResponse response) {
         // 短链接接口的并发量有多少？如何测试？
         // 面试中如何回答短链接是如何跳转长链接？
-        String serverName = request.getServerName();
-        String serverPort = Optional.of(request.getServerPort())
-                .filter(each -> !Objects.equals(each, 80))
-                .map(String::valueOf)
-                .map(each -> ":" + each)
-                .orElse("");
-        String fullShortUrl = serverName + serverPort + "/" + shortUri;
+        String fullShortUrl = StrBuilder.create(createShortLinkDefaultDomain)
+                .append("/")
+                .append(shortUri)
+                .toString();
         String originalLink;
         try {
             LambdaQueryWrapper<ShortLinkGotoDO> linkGotoQueryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class)
@@ -294,18 +290,18 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
 
     @SneakyThrows
     private String getFavicon(String url) {
-        URL targetUrl = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) targetUrl.openConnection();
-        connection.setRequestMethod("GET");
-        connection.connect();
-        int responseCode = connection.getResponseCode();
-        if (HttpURLConnection.HTTP_OK == responseCode) {
-            Document document = Jsoup.connect(url).get();
-            Element faviconLink = document.select("link[rel~=(?i)^(shortcut )?icon]").first();
-            if (faviconLink != null) {
-                return faviconLink.attr("abs:href");
-            }
-        }
+//        URL targetUrl = new URL(url);
+//        HttpURLConnection connection = (HttpURLConnection) targetUrl.openConnection();
+//        connection.setRequestMethod("GET");
+//        connection.connect();
+//        int responseCode = connection.getResponseCode();
+//        if (HttpURLConnection.HTTP_OK == responseCode) {
+//            Document document = Jsoup.connect(url).get();
+//            Element faviconLink = document.select("link[rel~=(?i)^(shortcut )?icon]").first();
+//            if (faviconLink != null) {
+//                return faviconLink.attr("abs:href");
+//            }
+//        }
         return null;
     }
 

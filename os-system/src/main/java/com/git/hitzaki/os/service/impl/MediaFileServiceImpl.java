@@ -65,7 +65,7 @@ public class MediaFileServiceImpl implements MediaFileService {
     MediaFileService currentProxy;
 
     @Override
-    public PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto) {
+    public PageResult<MediaFiles> queryMediaFiels(PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto) {
 
         //构建查询条件对象
         LambdaQueryWrapper<MediaFiles> queryWrapper = new LambdaQueryWrapper<>();
@@ -86,8 +86,7 @@ public class MediaFileServiceImpl implements MediaFileService {
 
 
     @Override
-
-    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, byte[] bytes, String folder, String objectName) {
+    public UploadFileResultDto uploadFile(UploadFileParamsDto uploadFileParamsDto, byte[] bytes, String folder, String objectName) {
 
         //得到文件的md5值
         String fileMd5 = DigestUtils.md5Hex(bytes);
@@ -95,7 +94,7 @@ public class MediaFileServiceImpl implements MediaFileService {
         if (StringUtils.isEmpty(folder)) {
             //自动生成目录的路径 按年月日生成，
             folder = getFileFolder(new Date(), true, true, true);
-        } else if (folder.indexOf("/") < 0) {
+        } else if (!folder.contains("/")) {
             folder = folder + "/";
         }
         //文件名称
@@ -112,7 +111,7 @@ public class MediaFileServiceImpl implements MediaFileService {
 
             addMediaFilesToMinIO(bytes, bucket_files, objectName);
 
-            MediaFiles mediaFiles = currentProxy.addMediaFilesToDb(companyId, fileMd5, uploadFileParamsDto, bucket_files, objectName);
+            MediaFiles mediaFiles = currentProxy.addMediaFilesToDb(fileMd5, uploadFileParamsDto, bucket_files, objectName);
             //准备返回数据
             UploadFileResultDto uploadFileResultDto = new UploadFileResultDto();
             BeanUtils.copyProperties(mediaFiles, uploadFileResultDto);
@@ -128,7 +127,7 @@ public class MediaFileServiceImpl implements MediaFileService {
     }
 
 //    @Override
-//    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, byte[] bytes, String folder, String objectName) {
+//    public UploadFileResultDto uploadFile(UploadFileParamsDto uploadFileParamsDto, byte[] bytes, String folder, String objectName) {
 //
 //
 //        //得到文件的md5值
@@ -201,7 +200,6 @@ public class MediaFileServiceImpl implements MediaFileService {
 //    }
 
     /**
-     * @param companyId
      * @param fileId
      * @param uploadFileParamsDto
      * @param bucket
@@ -211,7 +209,7 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @author hitzaki
      */
     @Transactional
-    public MediaFiles addMediaFilesToDb(Long companyId, String fileId, UploadFileParamsDto uploadFileParamsDto, String bucket, String objectName) {
+    public MediaFiles addMediaFilesToDb(String fileId, UploadFileParamsDto uploadFileParamsDto, String bucket, String objectName) {
         //保存到数据库
         MediaFiles mediaFiles = mediaFilesMapper.selectById(fileId);
         if (mediaFiles == null) {
@@ -221,7 +219,6 @@ public class MediaFileServiceImpl implements MediaFileService {
             BeanUtils.copyProperties(uploadFileParamsDto, mediaFiles);
             mediaFiles.setId(fileId);
             mediaFiles.setFileId(fileId);
-            mediaFiles.setCompanyId(companyId);
             mediaFiles.setBucket(bucket);
             mediaFiles.setFilePath(objectName);
 
@@ -334,7 +331,7 @@ public class MediaFileServiceImpl implements MediaFileService {
 
     //合并分块
     @Override
-    public RestResponse mergechunks(Long companyId, String fileMd5, int chunkTotal, UploadFileParamsDto uploadFileParamsDto) {
+    public RestResponse mergechunks(String fileMd5, int chunkTotal, UploadFileParamsDto uploadFileParamsDto) {
         //下载分块
         File[] chunkFiles = checkChunkStatus(fileMd5, chunkTotal);
 
@@ -391,7 +388,7 @@ public class MediaFileServiceImpl implements MediaFileService {
 
             //将文件信息入库保存
             uploadFileParamsDto.setFileSize(tempMergeFile.length());//合并文件的大小
-            addMediaFilesToDb(companyId, fileMd5, uploadFileParamsDto, bucket_videofiles, mergeFilePath);
+            addMediaFilesToDb(fileMd5, uploadFileParamsDto, bucket_videofiles, mergeFilePath);
 
             return RestResponse.success(true);
         }finally {

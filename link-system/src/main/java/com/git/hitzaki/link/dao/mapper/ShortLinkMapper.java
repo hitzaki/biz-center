@@ -19,6 +19,7 @@ package com.git.hitzaki.link.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.git.hitzaki.base.model.PageParams;
 import com.git.hitzaki.link.dao.entity.ShortLinkDO;
 import com.git.hitzaki.link.dto.req.ShortLinkPageReqDTO;
 import org.apache.ibatis.annotations.Param;
@@ -38,6 +39,6 @@ public interface ShortLinkMapper extends BaseMapper<ShortLinkDO> {
     /**
      * 分页统计短链接
      */
-    IPage<ShortLinkDO> pageLink(ShortLinkPageReqDTO requestParam);
+    IPage<ShortLinkDO> pageLink(PageParams pageParams);
 
 }
