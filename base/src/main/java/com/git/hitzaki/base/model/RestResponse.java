@@ -24,11 +24,11 @@ public class RestResponse<T> {
   /**
    * 响应内容
    */
-  private T result;
+  private T data;
 
 
   public RestResponse() {
-   this(0, "success");
+   this(20000, "success");
   }
 
   public RestResponse(int code, String msg) {
@@ -52,7 +52,7 @@ public class RestResponse<T> {
   public static <T> RestResponse<T> validfail(T result,String msg) {
    RestResponse<T> response = new RestResponse<T>();
    response.setCode(-1);
-   response.setResult(result);
+   response.setData(result);
    response.setMsg(msg);
    return response;
   }
@@ -66,12 +66,12 @@ public class RestResponse<T> {
    */
   public static <T> RestResponse<T> success(T result) {
    RestResponse<T> response = new RestResponse<T>();
-   response.setResult(result);
+   response.setData(result);
    return response;
   }
   public static <T> RestResponse<T> success(T result,String msg) {
    RestResponse<T> response = new RestResponse<T>();
-   response.setResult(result);
+   response.setData(result);
    response.setMsg(msg);
    return response;
   }

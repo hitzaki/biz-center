@@ -10,7 +10,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
  * spring安全 配置类
  * @author hitzaki
  */
- @EnableWebFluxSecurity
  @Configuration
  public class SecurityConfig {
 
