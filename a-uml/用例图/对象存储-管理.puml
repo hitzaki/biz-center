@@ -2,10 +2,10 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:管理员: as Admin
+:管理员: as Admin #white
 
-(查看文件) as (Use1)
-(删除文件) as (Use2)
+(查看文件) as (Use1) #white
+(删除文件) as (Use2) #white
 
 Admin -down-> (Use1)
 Admin -down-> (Use2)

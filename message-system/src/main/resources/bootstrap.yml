@@ -1,6 +1,6 @@
 spring:
   application:
-    name: message-server
+    name: message-service
 
   #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,3 +22,10 @@ spring:
       discovery:
         namespace: dev
         group: biz-center
+      config:
+        namespace: dev
+        group: biz-center
+        file-extension: yaml
+        refresh-enabled: true
+  profiles:
+    active: dev

@@ -2,19 +2,19 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:用户: as User
+:用户: as User #white
 
-(单聊) as (Use1)
-  (临时会话) as (Use11)
-  (好友聊天) as (Use12)
-(群聊) as (Use2)
-  (临时聊天室) as (Use21)
-  (好友群聊) as (Use22)
-(好友关系) as (Use3)
-  (分组) as (Use31)
-  (好友申请) as (Use32)
-  (删除) as (Use33)
-  (拉黑) as (Use34)
+(单聊) as (Use1) #white
+  (临时会话) as (Use11) #white
+  (好友聊天) as (Use12) #white
+(群聊) as (Use2) #white
+  (临时聊天室) as (Use21) #white
+  (好友群聊) as (Use22) #white
+(好友关系) as (Use3) #white
+  (分组) as (Use31) #white
+  (好友申请) as (Use32) #white
+  (删除) as (Use33) #white
+  (拉黑) as (Use34) #white
 
 User -down-> (Use1)
 User -down-> (Use2)

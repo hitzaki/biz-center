@@ -2,15 +2,15 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:用户: as User
+:用户: as User #white
 
-(上传小文件) as (Use1)
-(上传大型文件) as (Use2)
-  (传输分块) as (Use21)
-  (检查分块存在) as (Use22)
-  (分块合并) as (Use23)
-(查看文件) as (Use3)
-(删除文件) as (Use4)
+(上传小文件) as (Use1) #white
+(上传大型文件) as (Use2) #white
+  (传输分块) as (Use21) #white
+  (检查分块存在) as (Use22) #white
+  (分块合并) as (Use23) #white
+(查看文件) as (Use3) #white
+(删除文件) as (Use4) #white
 
 User -down-> (Use1)
 User -down-> (Use2)

@@ -2,13 +2,13 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:用户: as User
+:用户: as User #white
 
-(注册) as (Use1)
-(登录) as (Use2)
-  (账号密码) as (Use21)
-  (第三方登录) as (Use22)
-(退出登录) as (Use3)
+(注册) as (Use1) #white
+(登录) as (Use2) #white
+  (账号密码) as (Use21) #white
+  (第三方登录) as (Use22) #white
+(退出登录) as (Use3) #white
 
 User -down-> (Use1)
 User -down-> (Use2)

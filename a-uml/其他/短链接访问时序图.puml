@@ -1,0 +1,36 @@
+@startuml
+
+skinparam sequence {
+LifeLineBackgroundColor #white
+
+ParticipantBorderColor #black
+ParticipantBackgroundColor #white
+ParticipantFontColor #black
+
+ActorBackgroundColor aqua
+ActorFontColor DeepSkyBlue
+ActorFontSize 17
+ActorFontName Aapex
+}
+
+participant User
+
+User -> LinkController: 访问短链接
+activate LinkController
+
+LinkController -> LinkService: 获取短链接的源链接
+activate LinkService
+
+LinkService -> DB: 获取短链接的源链接
+activate DB
+DB --> LinkService: 返回源链接
+deactivate DB
+
+LinkService --> LinkController: 返回源链接
+deactivate LinkService
+
+LinkController -> User: 重定向源链接
+
+deactivate LinkController
+
+@enduml

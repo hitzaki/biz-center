@@ -1,0 +1,30 @@
+@startmindmap
+left to right direction
+'最近一次更新时间: 2024-05-05
+<style>
+mindmapDiagram {
+  .white {
+    BackgroundColor white
+  }
+}
+</style>
+* 中台系统 <<white>>
+** 认证授权 <<white>>
+*** 登录认证 <<white>>
+*** 注册 <<white>>
+*** 退出登录 <<white>>
+** 对象存储 <<white>>
+*** 小文件存储 <<white>>
+*** 大文件分块传输 <<white>>
+*** 访问文件 <<white>>
+** 短链 <<white>>
+*** 短链生成 <<white>>
+*** 短链访问 <<white>>
+*** 统计访问数据 <<white>>
+** 消息下发 <<white>>
+*** 短信下发 <<white>>
+*** 邮件下发 <<white>>
+** 及时通信 <<white>>
+*** 单聊 <<white>>
+*** 群聊 <<white>>
+@endmindmap

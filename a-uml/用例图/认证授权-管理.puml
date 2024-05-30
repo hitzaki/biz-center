@@ -2,11 +2,11 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:管理员: as Admin
+:管理员: as Admin #white
 
-(用户资料管理) as (Use1)
-(用户权限管理) as (Use2)
-(用户管理) as (Use3)
+(用户资料管理) as (Use1) #white
+(用户权限管理) as (Use2) #white
+(用户管理) as (Use3) #white
 
 Admin -down-> (Use1)
 Admin -down-> (Use2)

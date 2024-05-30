@@ -2,11 +2,11 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:用户: as User
+:用户: as User #white
 
-(发送消息) as (Use1)
-  (发送短信) as (Use11)
-  (发送邮件) as (Use12)
+(发送消息) as (Use1) #white
+  (发送短信) as (Use11) #white
+  (发送邮件) as (Use12) #whit
 
 User -down-> (Use1)
 

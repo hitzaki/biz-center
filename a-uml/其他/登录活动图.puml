@@ -1,0 +1,36 @@
+@startuml
+start
+
+<style>
+activityDiagram {
+  diamond {
+    BackgroundColor #white
+  }
+}
+document {
+   BackgroundColor transparent
+}
+</style>
+
+switch (登录方式)
+case ( 微信登录 )
+  #white:返回二维码;
+  #white:扫描二维码;
+  if (扫码成功?) is (yes) then
+    #white:同意授权;
+    #white:登录成功;
+  else (no)
+    #white:微信登录失败;
+  endif
+case ( 验证码登录 )
+  #white:返回验证码图片;
+  #white:输入账号密码和验证码;
+  while (账号密码和验证码不正确?)
+    #white:重新获取验证码图片;
+    #white:重新输入账号密码和验证码;
+  endwhile
+  #white:登录成功;
+endswitch
+
+stop
+@enduml

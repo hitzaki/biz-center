@@ -2,11 +2,11 @@
 '最近一次更新时间: 2024-05-05
 left to right direction
 
-:用户: as User
+:用户: as User #white
 
-(访问短链接) as (Use1)
-  (重定向) as (Use11)
-  (统计数据) as (Use12)
+(访问短链接) as (Use1) #white
+  (重定向) as (Use11) #white
+  (统计数据) as (Use12) #white
 
 User -down-> (Use1)
 (Use1) --> (Use11)

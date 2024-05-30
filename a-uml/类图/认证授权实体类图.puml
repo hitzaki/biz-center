@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam class {
+BackgroundColor white
+}
+
+class User  << (C,white) >>{
+  string id
+  Object[] elementData
+  string userName
+  string password
+  string wxId
+  int type
+  int appId
+  string info
+}
+
+class USER_ROLE  << (C,white) >>{
+  string id
+  string userId
+  string roleId
+}
+
+class ROLE  << (C,white) >>{
+  string id
+  string name
+  int code
+  int desc
+}
+class PERMISSION  << (C,white) >>{
+  string id
+  string userId
+  string menuId
+  string desc
+}
+class MENU  << (C,white) >>{
+  string id
+  string name
+  int code
+}
+
+User "1"-"n" USER_ROLE
+USER_ROLE "1"--"n" ROLE
+ROLE "1"-l-"n" PERMISSION
+PERMISSION "1"-l-"n" MENU
+
+@enduml
