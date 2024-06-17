@@ -7,7 +7,7 @@ left to right direction
 (生成短链接) as (Use1) #white
 (查看统计数据) as (Use2) #white
 
-Admin -down-> (Use1)
-Admin -down-> (Use2)
+Admin -down- (Use1)
+Admin -down- (Use2)
 
 @enduml

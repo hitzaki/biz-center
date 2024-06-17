@@ -38,25 +38,25 @@ public class MediaFilesController {
     }
 
     @RequestMapping(value = "/upload/file", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile filedata,
+    public UploadFileResultDto upload(@RequestPart("file") MultipartFile file,
                                       @RequestParam(value = "folder",required=false) String folder,
                                       @RequestParam(value= "objectName",required=false) String objectName) {
 
 
         UploadFileParamsDto uploadFileParamsDto = new UploadFileParamsDto();
-        String contentType = filedata.getContentType();
+        String contentType = file.getContentType();
         uploadFileParamsDto.setContentType(contentType);
-        uploadFileParamsDto.setFileSize(filedata.getSize());//文件大小
+        uploadFileParamsDto.setFileSize(file.getSize());//文件大小
         if (contentType.indexOf("image") >= 0) {
             //是个图片
             uploadFileParamsDto.setFileType("001001");
         } else {
             uploadFileParamsDto.setFileType("001003");
         }
-        uploadFileParamsDto.setFilename(filedata.getOriginalFilename());//文件名称
+        uploadFileParamsDto.setFilename(file.getOriginalFilename());//文件名称
         UploadFileResultDto uploadFileResultDto = null;
         try {
-            uploadFileResultDto = mediaFileService.uploadFile(uploadFileParamsDto, filedata.getBytes(), folder, objectName);
+            uploadFileResultDto = mediaFileService.uploadFile(uploadFileParamsDto, file.getBytes(), folder, objectName);
         } catch (Exception e) {
             BizCenterException.cast("上传文件过程中出错");
         }

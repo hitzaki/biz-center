@@ -18,6 +18,8 @@ public class PageResult<T> {
   //总记录数
   private long counts;
 
+  private int code = 20000;
+
   //当前页码
   private long page;
 

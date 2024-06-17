@@ -18,7 +18,7 @@ public class MailController {
     private MailService mailService;
 
     @PostMapping("/mail")
-    public RestResponse<Void> sendMail(MailMessageParam param){
+    public RestResponse<Void> sendMail(@RequestBody MailMessageParam param){
         mailService.sendMail(param);
         return RestResponse.success();
     }

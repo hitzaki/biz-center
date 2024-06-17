@@ -12,13 +12,13 @@ left to right direction
 (查看文件) as (Use3) #white
 (删除文件) as (Use4) #white
 
-User -down-> (Use1)
-User -down-> (Use2)
-User -down-> (Use3)
-User -down-> (Use4)
+User -down- (Use1)
+User -down- (Use2)
+User -down- (Use3)
+User -down- (Use4)
 
-(Use2) --> (Use21):include
-(Use2) --> (Use22):include
-(Use2) --> (Use23):include
+(Use2) -- (Use21):<<include>>
+(Use2) -- (Use22):<<include>>
+(Use2) -- (Use23):<<include>>
 
 @enduml

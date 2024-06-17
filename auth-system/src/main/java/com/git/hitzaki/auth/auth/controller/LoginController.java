@@ -46,8 +46,8 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         map.put("roles", "admin");
         map.put("introduction", "我是管理员");
-        map.put("avatar","https://lxc-1312149144.cos.ap-nanjing.myqcloud.com/BookSystem/home.jpg");
-        map.put("name", "管理员");
+        map.put("avatar","http://192.168.101.65:9000/mediafiles/test/code-wallpaper-18.png");
+        map.put("name", "帅比辰");
         return RestResponse.success(map);
     }
 

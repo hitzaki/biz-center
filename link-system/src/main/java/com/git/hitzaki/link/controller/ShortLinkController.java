@@ -19,7 +19,9 @@ package com.git.hitzaki.link.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.git.hitzaki.base.model.PageParams;
+import com.git.hitzaki.base.model.PageResult;
 import com.git.hitzaki.base.model.RestResponse;
+import com.git.hitzaki.link.dao.entity.ShortLinkDO;
 import com.git.hitzaki.link.dto.req.ShortLinkBatchCreateReqDTO;
 import com.git.hitzaki.link.dto.req.ShortLinkCreateReqDTO;
 import com.git.hitzaki.link.dto.req.ShortLinkPageReqDTO;
@@ -61,6 +63,15 @@ public class ShortLinkController {
         return RestResponse.success(shortLinkService.createShortLink(requestParam));
     }
 
+    /**
+     * 停用短链接
+     */
+    @GetMapping("/api/short-link/v1/disable/{short-uri}")
+    public RestResponse disableLink(@PathVariable("short-uri") String shortUri) {
+        shortLinkService.disableLink(shortUri);
+        return RestResponse.success();
+    }
+
 
     /**
      * 批量创建短链接
@@ -82,9 +93,9 @@ public class ShortLinkController {
     /**
      * 分页查询短链接
      */
-    @GetMapping("/api/short-link/v1/page")
-    public RestResponse<IPage<ShortLinkPageRespDTO>> pageShortLink(PageParams pageParams, @RequestBody(required = false) ShortLinkPageReqDTO requestParam) {
-        return RestResponse.success(shortLinkService.pageShortLink(pageParams));
+    @PostMapping("/api/short-link/v1/page")
+    public PageResult<ShortLinkDO> pageShortLink(PageParams pageParams, @RequestBody(required = false) ShortLinkPageReqDTO requestParam) {
+        return shortLinkService.pageShortLink(pageParams);
     }
 
 }

@@ -8,8 +8,8 @@ left to right direction
   (重定向) as (Use11) #white
   (统计数据) as (Use12) #white
 
-User -down-> (Use1)
-(Use1) --> (Use11)
-(Use1) --> (Use12)
+User -down- (Use1)
+(Use1) -- (Use11)
+(Use1) -- (Use12)
 
 @enduml

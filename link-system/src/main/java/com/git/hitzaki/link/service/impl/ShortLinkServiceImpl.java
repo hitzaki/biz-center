@@ -24,9 +24,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.git.hitzaki.base.exception.BizCenterException;
 import com.git.hitzaki.base.model.PageParams;
+import com.git.hitzaki.base.model.PageResult;
 import com.git.hitzaki.link.common.enums.VailDateTypeEnum;
 import com.git.hitzaki.link.dao.entity.ShortLinkDO;
 import com.git.hitzaki.link.dao.entity.ShortLinkGotoDO;
@@ -70,6 +72,7 @@ import java.util.Optional;
 public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLinkDO> implements ShortLinkService {
 
     private final ShortLinkGotoMapper shortLinkGotoMapper;
+    private final ShortLinkMapper shortLinkMapper;
 
     @Value("${short-link.domain.default}")
     private String createShortLinkDefaultDomain;
@@ -97,6 +100,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .totalUv(0)
                 .totalUip(0)
                 .delTime(0L)
+                .delFlag(0)
                 .fullShortUrl(fullShortUrl)
                 .favicon(getFavicon(requestParam.getOriginUrl()))
                 .build();
@@ -220,13 +224,21 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
     }
 
     @Override
-    public IPage<ShortLinkPageRespDTO> pageShortLink(PageParams pageParams) {
-        IPage<ShortLinkDO> resultPage = baseMapper.pageLink(pageParams);
-        return resultPage.convert(each -> {
-            ShortLinkPageRespDTO result = BeanUtil.toBean(each, ShortLinkPageRespDTO.class);
-            result.setDomain("http://" + result.getDomain());
-            return result;
-        });
+    public PageResult<ShortLinkDO> pageShortLink(PageParams pageParams) {
+        //构建查询条件对象
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = new LambdaQueryWrapper<>();
+
+        //分页对象
+        Page<ShortLinkDO> page = new Page<>(pageParams.getPageNo(), pageParams.getPageSize());
+        // 查询数据内容获得结果
+        Page<ShortLinkDO> pageResult = shortLinkMapper.selectPage(page, queryWrapper);
+        // 获取数据列表
+        List<ShortLinkDO> list = pageResult.getRecords();
+        // 获取数据总数
+        long total = pageResult.getTotal();
+        // 构建结果集
+        PageResult<ShortLinkDO> mediaListResult = new PageResult<>(list, total, pageParams.getPageNo(), pageParams.getPageSize());
+        return mediaListResult;
     }
 
 
@@ -258,10 +270,36 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 ((HttpServletResponse) response).sendRedirect("/page/notfound");
                 return;
             }
+            shortLinkDO.setTotalPv(shortLinkDO.getTotalPv()+1);
+            baseMapper.updateById(shortLinkDO);
+
             ((HttpServletResponse) response).sendRedirect(shortLinkDO.getOriginUrl());
         } finally {
             // 释放锁
         }
+    }
+
+    @Override
+    public void disableLink(String shortUri) {
+        String fullShortUrl = StrBuilder.create(createShortLinkDefaultDomain)
+                .append("/")
+                .append(shortUri)
+                .toString();
+        LambdaQueryWrapper<ShortLinkGotoDO> linkGotoQueryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class)
+                .eq(ShortLinkGotoDO::getFullShortUrl, fullShortUrl);
+        ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(linkGotoQueryWrapper);
+        if (shortLinkGotoDO == null) {
+            return;
+        }
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, shortLinkGotoDO.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, fullShortUrl);
+        ShortLinkDO shortLinkDO = baseMapper.selectOne(queryWrapper);
+        if (shortLinkDO == null) {
+            return;
+        }
+        shortLinkDO.setEnableStatus(shortLinkDO.getEnableStatus() ^ 1);
+        baseMapper.updateById(shortLinkDO);
     }
 
     private String generateSuffix(ShortLinkCreateReqDTO requestParam) {

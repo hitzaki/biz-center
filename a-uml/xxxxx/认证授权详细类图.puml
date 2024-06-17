@@ -1,0 +1,104 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+skinparam class {
+BackgroundColor white
+}
+
+class Model  << (A,white) >>{
+  string createTime
+      +getCreateTime(): date
+      +setCreateTime(date): void
+  string updateTime
+      +getUpdateTime(): date
+      +setUpdateTime(date): void
+  string deleteFlag
+      +getDeleteFlag(): int
+      +setDeleteFlag(int): void
+}
+
+class User  << (C,white) >>{
+  string id
+    +getId(): string
+    +setId(string): void
+  string userName
+      +getUserName(): string
+      +setUserName(string): void
+  string password
+      +getPassword(): string
+      +setPassword(string): void
+  string wxId
+      +getWxId(): string
+      +setWxId(string): void
+  int type
+      +getType(): int
+      +setType(string): void
+  int appId
+      +getAppId(): int
+      +setAppId(string): void
+  string info
+      +getInfo(): string
+      +setInfo(string): void
+
+
+}
+
+class USER_ROLE  << (C,white) >>{
+  string id
+      +getId(): string
+      +setId(string): void
+  string userId
+      +getUserId(): string
+      +setUserId(string): void
+  string roleId
+      +getRoleId(): string
+      +setRoleId(string): void
+}
+
+class ROLE  << (C,white) >>{
+  string id
+      +getId(): string
+      +setId(string): void
+  string name
+      +getName(): string
+      +setName(string): void
+  int code
+      +getCode(): int
+      +setCode(string): void
+  int desc
+      +getDesc(): int
+      +setDesc(string): void
+}
+class PERMISSION  << (C,white) >>{
+  string id
+      +getId(): string
+      +setId(string): void
+  string userId
+      +getUserId(): string
+      +setUserId(string): void
+  string menuId
+      +getMenuId(): string
+      +setMenuId(string): void
+  string desc
+      +getDesc(): string
+      +setDesc(string): void
+}
+class MENU  << (C,white) >>{
+  string id
+      +getId(): string
+      +setId(string): void
+  string name
+      +getName(): string
+      +setName(string): void
+  int code
+      +getCode(): int
+      +setCode(string): void
+}
+
+User -l-|> Model
+User "1"-"n" USER_ROLE
+USER_ROLE "1"--"n" ROLE
+ROLE "1"-l-"n" PERMISSION
+PERMISSION "1"-l-"n" MENU
+
+@enduml

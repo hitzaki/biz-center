@@ -16,17 +16,17 @@ left to right direction
   (删除) as (Use33) #white
   (拉黑) as (Use34) #white
 
-User -down-> (Use1)
-User -down-> (Use2)
-User -down-> (Use3)
+User -down- (Use1)
+User -down- (Use2)
+User -down- (Use3)
 
-(Use1) --> (Use11):extend
-(Use1) --> (Use12):extend
-(Use2) --> (Use21):extend
-(Use2) --> (Use22):extend
-(Use3) --> (Use31):extend
-(Use3) --> (Use32):extend
-(Use3) --> (Use33):extend
-(Use3) --> (Use34):extend
+(Use1) -- (Use11):<<extend>>
+(Use1) -- (Use12):<<extend>>
+(Use2) -- (Use21):<<extend>>
+(Use2) -- (Use22):<<extend>>
+(Use3) -- (Use31):<<extend>>
+(Use3) -- (Use32):<<extend>>
+(Use3) -- (Use33):<<extend>>
+(Use3) -- (Use34):<<extend>>
 
 @enduml

@@ -1,0 +1,44 @@
+@startuml
+'以下是格式定义
+skinparam componentStyle uml1
+skinparam interface {
+  backgroundColor white
+  borderColor black
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> white
+  BorderColor<<Apache>> white
+  FontName Courier
+  BorderColor black
+  BackgroundColor white
+  ArrowColor #black
+  ArrowFontColor #black
+}
+'以下是正文
+
+() "预约" as D1
+() "投诉" as D2
+() "退款" as D3
+() "处罚" as D4
+() "确认" as D5
+Component "家政服务" as M1
+Component "预约服务" as M2
+Component "投诉服务" as M3
+Component "退款服务" as M4
+Component "处罚服务" as M5
+Component "订单确认服务" as M6
+
+D1 - M1
+D1 -up- M2
+M1 - D2
+D2 -up- M3
+M3 - D3
+D3 - M4
+M4 -- D4
+D4 -- M5
+M1 -- D5
+D5 - M6
+
+@enduml

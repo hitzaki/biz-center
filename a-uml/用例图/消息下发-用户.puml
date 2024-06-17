@@ -6,11 +6,11 @@ left to right direction
 
 (发送消息) as (Use1) #white
   (发送短信) as (Use11) #white
-  (发送邮件) as (Use12) #whit
+  (发送邮件) as (Use12) #white
 
-User -down-> (Use1)
+User -down- (Use1)
 
-(Use1) --> (Use11):extend
-(Use1) --> (Use12):extend
+(Use1) -- (Use11):<<extend>>
+(Use1) -- (Use12):<<extend>>
 
 @enduml

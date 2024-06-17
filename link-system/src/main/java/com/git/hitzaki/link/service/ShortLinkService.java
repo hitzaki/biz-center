@@ -20,6 +20,7 @@ package com.git.hitzaki.link.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.git.hitzaki.base.model.PageParams;
+import com.git.hitzaki.base.model.PageResult;
 import com.git.hitzaki.link.dao.entity.ShortLinkDO;
 import com.git.hitzaki.link.dto.req.ShortLinkBatchCreateReqDTO;
 import com.git.hitzaki.link.dto.req.ShortLinkCreateReqDTO;
@@ -63,7 +64,7 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      * 分页查询短链接
      * @return 短链接分页返回结果
      */
-    IPage<ShortLinkPageRespDTO> pageShortLink(PageParams pageParams);
+    PageResult<ShortLinkDO> pageShortLink(PageParams pageParams);
 
     /**
      * 短链接跳转
@@ -74,4 +75,5 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      */
     void restoreUrl(String shortUri, ServletRequest request, ServletResponse response);
 
+    void disableLink(String shortUri);
 }

@@ -8,8 +8,8 @@ left to right direction
 (用户权限管理) as (Use2) #white
 (用户管理) as (Use3) #white
 
-Admin -down-> (Use1)
-Admin -down-> (Use2)
-Admin -down-> (Use3)
+Admin -down- (Use1)
+Admin -down- (Use2)
+Admin -down- (Use3)
 
 @enduml

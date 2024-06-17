@@ -10,11 +10,11 @@ left to right direction
   (第三方登录) as (Use22) #white
 (退出登录) as (Use3) #white
 
-User -down-> (Use1)
-User -down-> (Use2)
-User -down-> (Use3)
-(Use2) --> (Use21):extend
-(Use2) --> (Use22):extend
+User -down- (Use1)
+User -down- (Use2)
+User -down- (Use3)
+(Use2) -- (Use21):<<extend>>
+(Use2) -- (Use22):<<extend>>
 
 
 @enduml

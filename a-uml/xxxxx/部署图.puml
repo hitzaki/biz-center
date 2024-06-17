@@ -1,0 +1,80 @@
+@startuml
+
+<style>
+interface {
+  backgroundColor white
+  LineThickness 1
+  borderColor black
+}
+artifact {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+cloud {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+component {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+database {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+folder {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+node {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+package {
+  BackGroundColor white
+  LineThickness 1
+  LineColor black
+}
+</style>
+
+
+interface  用户接口
+interface  动静分离
+interface  负载均衡
+interface  持久化
+
+database 数据库
+
+package 前端项目{
+    node 管理界面
+    artifact package.json
+}
+
+package 后端项目{
+    node 预约服务
+    node 售后服务{
+      node 投诉服务
+      node 退款服务
+      node 处罚服务
+      node 确认服务
+    }
+    node 家政服务
+    artifact profile
+    artifact pom.xml
+}
+node nginx
+
+用户接口 - nginx
+nginx -- 动静分离
+动静分离 -- 前端项目
+nginx - 负载均衡
+负载均衡 -- 后端项目
+后端项目 -- 持久化
+持久化 -- 数据库
+@enduml

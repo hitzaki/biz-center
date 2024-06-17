@@ -1,5 +1,7 @@
 package com.git.hitzaki.im.websocket;
 
+import com.alibaba.fastjson.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -19,24 +21,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ServerEndpoint("/wv2")
 @Component
 public class WsV2E {
-    Map<Session, String> sessionNameMap = new ConcurrentHashMap<>();
 
-    AtomicInteger no = new AtomicInteger();
+    private static final WsSessionManager wsSessionManager = new WsSessionManager();
 
     /**
      * 连接成功*/
     @OnOpen
     public void onOpen(Session session) {
+        AtomicInteger no = wsSessionManager.no;
+        Map<Session, String> sessionNameMap = wsSessionManager.sessionNameMap;
         int i = no.get();
         while (!no.compareAndSet(i, i+1)){
             i = no.get();
         }
         sessionNameMap.put(session, Integer.toString(i+1));
-        String format = String.format("用户%s上线", i);
+        String format = String.format("用户%s上线", i+1);
+        Message message = new Message("system",format);
+        System.out.println(format);
         sessionNameMap.forEach((key, value)->{
             if (!session.equals(key)){
                 try {
-                    session.getBasicRemote().sendText(format);
+                    session.getBasicRemote().sendText(JSON.toJSONString(message));
                 } catch (IOException e) {
                     throw new RuntimeException("发送消息错误");
                 }
@@ -49,12 +54,17 @@ public class WsV2E {
      */
     @OnClose
     public void onClose(Session session) {
+        AtomicInteger no = wsSessionManager.no;
+        Map<Session, String> sessionNameMap = wsSessionManager.sessionNameMap;
+
         sessionNameMap.remove(session);
         String format = String.format("用户%s下线", sessionNameMap.get(session));
+        Message message = new Message("system",format);
+        System.out.println(format);
         sessionNameMap.forEach((key, value)->{
             if (!session.equals(key)){
                 try {
-                    session.getBasicRemote().sendText(format);
+                    session.getBasicRemote().sendText(JSON.toJSONString(message));
                 } catch (IOException e) {
                     throw new RuntimeException("发送消息错误");
                 }
@@ -69,12 +79,16 @@ public class WsV2E {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        String format = String.format("用户%s发送消息(Time: %s): \n  %s",
-                sessionNameMap.get(session), message, LocalDateTime.now());
+        AtomicInteger no = wsSessionManager.no;
+        Map<Session, String> sessionNameMap = wsSessionManager.sessionNameMap;
+
+//        String format = String.format("用户%s发送消息(Time: %s): \n  %s",
+//                sessionNameMap.get(session), message, LocalDateTime.now());
+//        System.out.println(format);
         sessionNameMap.forEach((key, value)->{
             if (!session.equals(key)){
                 try {
-                    session.getBasicRemote().sendText(format);
+                    session.getBasicRemote().sendText(JSON.toJSONString(message));
                 } catch (IOException e) {
                     throw new RuntimeException("发送消息错误");
                 }
